@@ -1,4 +1,4 @@
-module github.com/micro/go-plugins
+module github.com/quexer/go-plugins
 
 require (
 	cloud.google.com/go v0.44.0
