@@ -18,8 +18,13 @@ type deliveryMode struct{}
 type externalAuth struct{}
 type durableExchange struct{}
 
+// ServerAckOnSuccess support "manual ack" on success
+func ServerAckOnSuccess() server.SubscriberOption {
+	return setServerSubscribeOption(ackSuccessKey{}, true)
+}
+
 // ServerDurableQueue provide durable queue option for micro.RegisterSubscriber
-func ServerDurableQueue()server.SubscriberOption{
+func ServerDurableQueue() server.SubscriberOption {
 	return setServerSubscribeOption(durableQueueKey{}, true)
 }
 
