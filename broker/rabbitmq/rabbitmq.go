@@ -249,7 +249,7 @@ func (r *rbroker) Options() broker.Options {
 }
 
 func (r *rbroker) String() string {
-	return "rabbitmq"
+	return "rmq"
 }
 
 func (r *rbroker) Address() string {
