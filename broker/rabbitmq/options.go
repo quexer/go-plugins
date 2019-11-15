@@ -4,6 +4,7 @@ import (
 	"context"
 
 	"github.com/micro/go-micro/broker"
+	"github.com/micro/go-micro/server"
 )
 
 type durableQueueKey struct{}
@@ -16,6 +17,16 @@ type requeueOnErrorKey struct{}
 type deliveryMode struct{}
 type externalAuth struct{}
 type durableExchange struct{}
+
+// ServerAckOnSuccess support "manual ack" on success
+func ServerAckOnSuccess() server.SubscriberOption {
+	return setServerSubscribeOption(ackSuccessKey{}, true)
+}
+
+// ServerDurableQueue provide durable queue option for micro.RegisterSubscriber
+func ServerDurableQueue() server.SubscriberOption {
+	return setServerSubscribeOption(durableQueueKey{}, true)
+}
 
 // DurableQueue creates a durable queue when subscribing.
 func DurableQueue() broker.SubscribeOption {
