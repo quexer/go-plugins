@@ -5,7 +5,19 @@ import (
 
 	"github.com/micro/go-micro/v2/broker"
 	"github.com/micro/go-micro/v2/server"
+	"github.com/micro/go-micro/v2/metadata"
 )
+
+// setServerSubscribeOption returns a function to setup a context with given value
+func setServerSubscribeOption(k, v interface{}) server.SubscriberOption {
+	return func(o *server.SubscriberOptions) {
+		if o.Context == nil {
+			o.Context = context.Background()
+		}
+		o.Context = context.WithValue(o.Context, k, v)
+	}
+}
+
 
 // setSubscribeOption returns a function to setup a context with given value
 func setSubscribeOption(k, v interface{}) broker.SubscribeOption {
@@ -45,4 +57,19 @@ func setPublishOption(k, v interface{}) broker.PublishOption {
 		}
 		o.Context = context.WithValue(o.Context, k, v)
 	}
+}
+
+const deliveryModeHeader = "RabbitMQ-Delivery-Mode"
+
+// DurableMessageContext create new context with metadata for durable message sending
+func DurableMessageContext(ctx context.Context) context.Context {
+	if ctx == nil {
+		ctx = context.Background()
+	}
+	md, ok := metadata.FromContext(ctx)
+	if !ok {
+		md = make(map[string]string)
+	}
+	md[deliveryModeHeader] = "2" // 2 means durable per rabbitMQ doc
+	return metadata.NewContext(ctx, md)
 }
