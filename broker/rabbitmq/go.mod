@@ -1,4 +1,4 @@
-module github.com/micro/go-plugins/broker/rabbitmq/v2
+module github.com/quexer/go-plugins/broker/rabbitmq/v2
 
 go 1.13
 
