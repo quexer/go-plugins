@@ -1,4 +1,4 @@
-module github.com/micro/go-plugins/wrapper/ratelimiter/uber/v2
+module github.com/quexer/go-plugins/wrapper/ratelimiter/uber/v2
 
 go 1.13
 
